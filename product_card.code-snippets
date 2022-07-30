@@ -1,0 +1,21 @@
+{
+	"Item snippet": {
+		"prefix": "ite",
+		"body": [
+			"Item(",
+			"title= \"$1\"",
+			"price= $2",
+			"isBestSeller= $3",
+			"city= \"$4\"",
+			"tags= arrayOf(\"$5\")",
+			"stock= $6",
+			"discount= $7",
+			"sumOfColor = $8",
+			"isSmallCard= $9",
+			"image = painterResource(id = R.drawable.$10)",
+			"buttonFunctionality= $11"
+			,")"
+		],
+		"description": "this function class let you add a card widget OR component for ecommerce purpose"
+	}
+}
