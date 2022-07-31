@@ -7,12 +7,12 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -35,21 +35,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            val (showDialog, setShowDialog) =  remember { mutableStateOf(false) }
-            Item(
-                title = "MOST BRAND NEW SHOE WITH WHITE STRIPS AND BLACK ROPE MODEL FOR TEENAGERS SUITS YOU TO PLAY AND HIKING ON THE HIGHEST MOUNTAIN",
-                price = 50000.0,
-                isBestSeller = true,
-                city = "Jakarta",
-                tags = arrayOf("pre-order"),
-                stock = 10,
-                discount = 10,
-                sumOfColor = 5,
-                isSmallCard = true,
-                image = painterResource(id = R.drawable.ic_launcher_background),
-                buttonFunctionality = { setShowDialog(true) }
-            )
-            DialogDemo(showDialog, setShowDialog)
+            DefaultPreview()
         }
     }
 }
@@ -58,21 +44,57 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun DefaultPreview() {
     Product_cardTheme {
-        val (showDialog, setShowDialog) =  remember { mutableStateOf(false) }
-        Item(
-            title = "MOST BRAND NEW SHOE WITH WHITE STRIPS AND BLACK ROPE MODEL FOR TEENAGERS SUITS YOU TO PLAY AND HIKING ON THE HIGHEST MOUNTAIN",
-            price = 50000.0,
-            isBestSeller = true,
-            city = "Jakarta",
-            tags = arrayOf("pre-order", "unique"),
-            stock = 10,
-            discount = 10,
-            sumOfColor = 5,
-            isSmallCard = true,
-            image = painterResource(id = R.drawable.ic_launcher_background),
-            buttonFunctionality = { setShowDialog(true) }
-        )
-        DialogDemo(showDialog, setShowDialog)
+        LazyRow(
+            modifier = Modifier.fillMaxWidth(),
+            state = rememberLazyListState(),
+            horizontalArrangement = Arrangement.SpaceAround
+        ) {
+            item {
+                Item(
+                    title = "MOST BRAND NEW SHOE WITH WHITE STRIPS AND BLACK ROPE MODEL FOR TEENAGERS SUITS YOU TO PLAY AND HIKING ON THE HIGHEST MOUNTAIN",
+                    price = 50000.0,
+                    isBestSeller = true,
+                    city = "Jakarta",
+                    tags = arrayOf("pre-order", "unique"),
+                    stock = 10,
+                    discount = 10,
+                    sumOfColor = 5,
+                    isSmallCard = false,
+                    image = painterResource(id = R.drawable.ic_launcher_background),
+                    buttonFunctionality = {  }
+                )
+                Item(
+                    title = "MOST BRAND NEW SHOE WITH WHITE STRIPS AND BLACK ROPE MODEL FOR TEENAGERS SUITS YOU TO PLAY AND HIKING ON THE HIGHEST MOUNTAIN",
+                    price = 50000.0,
+                    isBestSeller = false,
+                    city = "Jakarta",
+                    tags = arrayOf("pre-order"),
+                    stock = 0,
+                    discount = 10,
+                    sumOfColor = 0,
+                    isSmallCard = false,
+                    image = painterResource(id = R.drawable.ic_launcher_background),
+                    buttonFunctionality = {  }
+                )
+                Item(
+                    title = "MOST BRAND NEW SHOE WITH WHITE STRIPS AND BLACK ROPE MODEL FOR TEENAGERS SUITS YOU TO PLAY AND HIKING ON THE HIGHEST MOUNTAIN",
+                    price = 50000.0,
+                    isBestSeller = true,
+                    city = "Jakarta",
+                    tags = arrayOf("pre-order", "unique"),
+                    stock = 10,
+                    discount = 10,
+                    sumOfColor = 5,
+                    isSmallCard = true,
+                    image = painterResource(id = R.drawable.ic_launcher_background),
+                    buttonFunctionality = {  }
+                )
+            }
+
+        }
+
+
+
     }
 }
 
@@ -121,8 +143,9 @@ fun Item(
                         Modifier
                             .align(Alignment.BottomEnd)
                             .background(
-                            Color.White,
-                            shape = RoundedCornerShape(15.dp))
+                                Color.White,
+                                shape = RoundedCornerShape(15.dp)
+                            )
                             .shadow(15.dp, CircleShape)
                     ) {
                         Icon(
@@ -240,41 +263,5 @@ fun Item(
                     .padding(horizontal = 10.dp)
             )
         }
-    }
-}
-
-@Composable
-fun DialogDemo(showDialog: Boolean, setShowDialog: (Boolean) -> Unit) {
-    if (showDialog) {
-        AlertDialog(
-            onDismissRequest = {
-            },
-            title = {
-                Text("COMING SOON")
-            },
-            confirmButton = {
-                Button(
-                    onClick = {
-                        // Change the state to close the dialog
-                        setShowDialog(false)
-                    },
-                ) {
-                    Text("Confirm")
-                }
-            },
-            dismissButton = {
-                Button(
-                    onClick = {
-                        // Change the state to close the dialog
-                        setShowDialog(false)
-                    },
-                ) {
-                    Text("Dismiss")
-                }
-            },
-            text = {
-                Text("WORKING ON IT ...")
-            },
-        )
     }
 }
